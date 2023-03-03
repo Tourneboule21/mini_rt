@@ -6,12 +6,12 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 10:17:26 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/03 16:20:12 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/03 18:35:17 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ILX_KEYCODES_H
-# define ILX_KEYCODES_H
+#ifndef MLX_KEYCODES_H
+# define MLX_KEYCODES_H
 
 # ifdef __gnu_linux__
 

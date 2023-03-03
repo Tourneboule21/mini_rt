@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:05:06 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/03 17:44:06 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/03 18:56:29 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINI_RT_H
 
 # define WIN_WIDTH 1920
-# define WIN_HEIGHT 1080
+# define ASPECT_RATIO 16.0 / 9.0
 
 # include <math.h>
 # include <stdio.h>
@@ -41,6 +41,23 @@ typedef struct s_vec3
 	double	y;
 	double	z;
 }	t_vec3;
+
+typedef struct s_ray
+{
+	t_vec3	origin;
+	t_vec3	dir;
+}	t_ray;
+
+typedef struct s_camera
+{
+	double	viewport_h;
+	double	viewport_w;
+	double	focal_length;
+	t_vec3	origin;
+	t_vec3	horizontal;
+	t_vec3	vertical;
+	t_vec3	low_left_corner;
+}	t_camera;
 
 typedef struct s_bgra
 {
@@ -72,8 +89,9 @@ typedef struct s_data
 	void		*win;
 	t_img		img;
 	uint32_t	*renderer;
+	int			win_w;
+	int			win_h;
 }	t_data;
-
 
 void	set_vec3(t_vec3 *vec, double x, double y, double z);
 double	vec3_length(t_vec3 *vec);
@@ -86,11 +104,15 @@ t_vec3	r_vec3_scale(t_vec3 *vec, double scale);
 t_vec3	r_add_vec3(t_vec3 *dest, t_vec3 *add);
 t_vec3	r_substract_vec3(t_vec3 *dest, t_vec3 *sub);
 t_vec3	r_reverse_vec3(t_vec3 *vec);
-void	copy_vec3(t_vec3 *dest, t_vec3 *src);
 double	vec3_dot_product(t_vec3 *vec1, t_vec3 *vec2);
 t_vec3	vec3_cross_product(t_vec3 *vec1, t_vec3 *vec2);
 void	vec3_normalize(t_vec3 *vec);
+t_vec3	r_vec3_normalize(t_vec3 *vec);
 void	print_vec3(t_vec3 *vec);
+
+void	init_ray(t_ray *ray, t_vec3 *origin, t_vec3 *dir);
+t_vec3	pos_on_ray(t_ray *ray, double t);
+t_vec3	ray_color(t_ray *ray);
 
 int		init_mlx(t_data *data);
 

@@ -6,7 +6,7 @@
 #    By: lcrimet <lcrimet@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/22 09:47:26 by lcrimet           #+#    #+#              #
-#    Updated: 2023/03/03 17:39:59 by lcrimet          ###   ########lyon.fr    #
+#    Updated: 2023/03/03 18:51:40 by lcrimet          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,8 @@ SRCS		= srcs/main.c \
 			  srcs/math/vec3.c \
 			  srcs/init/init_mlx.c \
 			  srcs/event_management/events.c \
+			  srcs/ray/ray.c \
+			  srcs/camera/camera.c \
 
 HEADERS		= includes \
 			  
