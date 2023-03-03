@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:05:06 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/03 17:22:07 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/03 17:44:06 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ typedef struct s_img
 
 typedef struct s_data
 {
-	void	*mlx;
-	void	*win;
-	t_img	img;
-	t_color	*renderer;
+	void		*mlx;
+	void		*win;
+	t_img		img;
+	uint32_t	*renderer;
 }	t_data;
 
 
@@ -93,5 +93,8 @@ void	vec3_normalize(t_vec3 *vec);
 void	print_vec3(t_vec3 *vec);
 
 int		init_mlx(t_data *data);
+
+int		key_pressed(int keycode, t_data *data);
+int		ft_close(void *param);
 
 #endif

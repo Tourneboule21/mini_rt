@@ -6,7 +6,7 @@
 #    By: lcrimet <lcrimet@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/22 09:47:26 by lcrimet           #+#    #+#              #
-#    Updated: 2023/03/03 17:09:12 by lcrimet          ###   ########lyon.fr    #
+#    Updated: 2023/03/03 17:39:59 by lcrimet          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ VERSION		= 0.0.1
 SRCS		= srcs/main.c \
 			  srcs/math/vec3.c \
 			  srcs/init/init_mlx.c \
+			  srcs/event_management/events.c \
 
 HEADERS		= includes \
 			  
@@ -81,12 +82,22 @@ $(BUILDDIR)/%.o : %.c Makefile $(LIB_PATHS)
 
 banner :
 		
-		@$(ECHO) '\x1b[1m\x1b[38;5;6m  _____       _           ___________  '
-		@$(ECHO) '\x1b[1m\x1b[38;5;6m /  __ \     | |         |____ |  _  \ '
-		@$(ECHO) '\x1b[1m\x1b[38;5;6m | /  \/_   _| |__   ___     / / | | | '
-		@$(ECHO) '\x1b[1m\x1b[38;5;6m | |   | | | |  _ \ / _ \    \ \ | | | '
-		@$(ECHO) '\x1b[1m\x1b[38;5;6m | \__/\ |_| | |_) |  __/.___/ / |/ /  '
-		@$(ECHO) '\x1b[1m\x1b[38;5;6m  \____/\__,_|_.__/ \___|\____/|___/   '
-		@$(ECHO) '\x1b[1m\x1b[38;5;6m \x1b[0mversion \x1b[1m$(VERSION)      \x1b[38;5;11m lcrimet & alboudje\x1b[0m'
+		@$(ECHO) '\x1b[1m\x1b[38;5;6m                          iiii                     iiii                   RRRRRRRRRRRRRRRRR   TTTTTTTTTTTTTTTTTTTTTTT'
+		@$(ECHO) '\x1b[1m\x1b[38;5;6m                         i::::i                   i::::i                  R::::::::::::::::R  T:::::::::::::::::::::T'
+		@$(ECHO) '\x1b[1m\x1b[38;5;6m                          iiii                     iiii                   R::::::RRRRRR:::::R T:::::::::::::::::::::T'
+		@$(ECHO) '\x1b[1m\x1b[38;5;6m                                                                          RR:::::R     R:::::RT:::::TT:::::::TT:::::T'
+		@$(ECHO) '\x1b[1m\x1b[38;5;6m   mmmmmmm    mmmmmmm   iiiiiiinnnn  nnnnnnnn    iiiiiii                    R::::R     R:::::RTTTTTT  T:::::T  TTTTTT'
+		@$(ECHO) '\x1b[1m\x1b[38;5;6m mm:::::::m  m:::::::mm i:::::in:::nn::::::::nn  i:::::i                    R::::R     R:::::R        T:::::T '
+		@$(ECHO) '\x1b[1m\x1b[38;5;6mm::::::::::mm::::::::::m i::::in::::::::::::::nn  i::::i                    R::::RRRRRR:::::R         T:::::T        '
+		@$(ECHO) '\x1b[1m\x1b[38;5;6mm::::::::::::::::::::::m i::::inn:::::::::::::::n i::::i  ---------------   R:::::::::::::RR          T:::::T        '
+		@$(ECHO) '\x1b[1m\x1b[38;5;6mm:::::mmm::::::mmm:::::m i::::i  n:::::nnnn:::::n i::::i  -:::::::::::::-   R::::RRRRRR:::::R         T:::::T        '
+		@$(ECHO) '\x1b[1m\x1b[38;5;6mm::::m   m::::m   m::::m i::::i  n::::n    n::::n i::::i  ---------------   R::::R     R:::::R        T:::::T        '
+		@$(ECHO) '\x1b[1m\x1b[38;5;6mm::::m   m::::m   m::::m i::::i  n::::n    n::::n i::::i                    R::::R     R:::::R        T:::::T        '
+		@$(ECHO) '\x1b[1m\x1b[38;5;6mm::::m   m::::m   m::::m i::::i  n::::n    n::::n i::::i                    R::::R     R:::::R        T:::::T        '
+		@$(ECHO) '\x1b[1m\x1b[38;5;6mm::::m   m::::m   m::::mi::::::i n::::n    n::::ni::::::i                 RR:::::R     R:::::R      TT:::::::TT      '
+		@$(ECHO) '\x1b[1m\x1b[38;5;6mm::::m   m::::m   m::::mi::::::i n::::n    n::::ni::::::i                 R::::::R     R:::::R      T:::::::::T      '
+		@$(ECHO) '\x1b[1m\x1b[38;5;6mm::::m   m::::m   m::::mi::::::i n::::n    n::::ni::::::i                 R::::::R     R:::::R      T:::::::::T      '
+		@$(ECHO) '\x1b[1m\x1b[38;5;6mmmmmmm   mmmmmm   mmmmmmiiiiiiii nnnnnn    nnnnnniiiiiiii                 RRRRRRRR     RRRRRRR      TTTTTTTTTTT      '
+		@$(ECHO) '\x1b[1m\x1b[38;5;6m \x1b[0mversion \x1b[1m$(VERSION)                                                                                         \x1b[38;5;11m lcrimet\x1b[0m'
 
 .PHONY: all clean fclean re bonus libs banner
