@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:11:04 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/03 15:00:52 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/03 17:24:09 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,28 @@ void	copy_vec3(t_vec3 *dest, t_vec3 *src)
 	dest->x = src->x;
 	dest->y = src->y;
 	dest->z = src->z;
+}
+
+double	vec3_dot_product(t_vec3 *vec1, t_vec3 *vec2)
+{
+	return (vec1->x * vec2->x + vec1->y * vec2->y + vec1->z * vec2->z);
+}
+
+t_vec3	vec3_cross_product(t_vec3 *vec1, t_vec3 *vec2)
+{
+	t_vec3	res;
+
+	res.x = vec1->y * vec2->z - vec1->z * vec2->y;
+	res.y = vec1->z * vec2->x - vec1->x * vec2->z;
+	res.z = vec1->x * vec2->y - vec1->y * vec2->x;
+	return (res);
+}
+
+void	vec3_normalize(t_vec3 *vec)
+{
+	vec->x /= vec3_length(vec);
+	vec->y /= vec3_length(vec);
+	vec->z /= vec3_length(vec);
 }
 
 void	print_vec3(t_vec3 *vec)

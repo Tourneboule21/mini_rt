@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:05:06 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/03 17:08:46 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/03 17:22:07 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,9 @@ t_vec3	r_add_vec3(t_vec3 *dest, t_vec3 *add);
 t_vec3	r_substract_vec3(t_vec3 *dest, t_vec3 *sub);
 t_vec3	r_reverse_vec3(t_vec3 *vec);
 void	copy_vec3(t_vec3 *dest, t_vec3 *src);
+double	vec3_dot_product(t_vec3 *vec1, t_vec3 *vec2);
+t_vec3	vec3_cross_product(t_vec3 *vec1, t_vec3 *vec2);
+void	vec3_normalize(t_vec3 *vec);
 void	print_vec3(t_vec3 *vec);
 
 int		init_mlx(t_data *data);
