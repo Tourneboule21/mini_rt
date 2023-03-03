@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:02:58 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/03 16:49:57 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/03 17:08:31 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	key_pressed(int keycode, t_data *data)
 	return (0);
 }
 
-int	close(void *param)
+int	ft_close(void *param)
 {
 	t_data	*data;
 
@@ -52,7 +52,7 @@ int	main(void)
 	reverse_vec3(&cp);
 	print_vec3(&cp);
 	printf("\n");
-	mlx_hook(data.win, ON_DESTROY, 0, close, &data);
+	mlx_hook(data.win, ON_DESTROY, 0, ft_close, &data);
 	mlx_hook(data.win, ON_KEYDOWN, 1L << 0, key_pressed, &data);
 	mlx_loop(data.mlx);
 	return (0);
