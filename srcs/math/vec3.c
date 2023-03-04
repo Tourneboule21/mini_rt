@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:11:04 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/04 13:20:26 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/04 14:49:42 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,16 @@ uint8_t		vec3_equal(t_vec3 *vec1, t_vec3 *vec2)
 	if (vec1->x == vec2->x && vec1->y == vec2->y && vec1->z == vec2->z)
 		return (1);
 	return (0);
+}
+
+t_vec3	random_vec3(void)
+{
+	return (r_set_vec3(random_double(), random_double(), random_double()));
+}
+
+t_vec3	random_vec3_limit(double min, double max)
+{
+	return (r_set_vec3(random_double_limit(min, max), random_double_limit(min, max), random_double_limit(min, max)));
 }
 
 void	print_vec3(t_vec3 *vec)

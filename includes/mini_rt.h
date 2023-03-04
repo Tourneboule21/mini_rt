@@ -6,14 +6,14 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:05:06 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/04 14:15:46 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/04 17:56:25 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINI_RT_H
 # define MINI_RT_H
 
-# define WIN_WIDTH 1920
+# define WIN_WIDTH 800
 # define ASPECT_RATIO (16.0 / 9.0)
 
 # include <math.h>
@@ -21,7 +21,6 @@
 # include <stdint.h>
 # include <stdlib.h>
 # include <float.h>
-# include <time.h>
 # include "mlx.h"
 # include "mlx_keycodes.h"
 
@@ -116,6 +115,7 @@ typedef struct s_data
 	int			win_w;
 	int			win_h;
 	int			sample_per_pixel;
+	int			max_depth;
 }	t_data;
 
 void		set_vec3(t_vec3 *vec, double x, double y, double z);
@@ -135,19 +135,24 @@ t_vec3		vec3_cross_product(t_vec3 *vec1, t_vec3 *vec2);
 void		vec3_normalize(t_vec3 *vec);
 t_vec3		r_vec3_normalize(t_vec3 vec);
 uint8_t		vec3_equal(t_vec3 *vec1, t_vec3 *vec2);
+t_vec3		random_vec3(void);
+t_vec3		random_vec3_limit(double min, double max);
 void		print_vec3(t_vec3 *vec);
 
 void		set_sphere(t_sphere *sphere, t_vec3 center, double radius);
 t_sphere	r_set_sphere(t_vec3 center, double radius);
+t_vec3		random_in_unit_sphere(void);
+t_vec3		random_unit_vec_sphere(void);
 uint8_t		hit_sphere(t_sphere *sphere, t_ray *ray, double t_min, double t_max, t_hit_info *hit_info);
 
 uint8_t		world_hit(t_objects *objects, t_ray *ray, double t_min, double t_max, t_hit_info *hit_info);
 void		set_face_normal(t_ray *ray, t_vec3 *outward_normal, t_hit_info *hit_info);
 
 void		init_ray(t_ray *ray, t_vec3 *origin, t_vec3 *dir);
+t_ray		*set_ray(t_ray *ray, t_vec3 origin, t_vec3 dir);
 t_vec3		pos_on_ray(t_ray *ray, double t);
-t_vec3		ray_color(t_ray *ray, t_objects *objects);
-t_vec3		get_ray_dir(t_camera *camera, float u, float v);
+t_vec3		ray_color(t_ray *ray, t_objects *objects, int depth);
+t_vec3		get_ray_dir(t_camera *camera, double u, double v);
 
 void		init_camera(t_camera *camera);
 

@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 12:18:43 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/04 13:29:57 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/04 18:11:12 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,22 @@ t_sphere	r_set_sphere(t_vec3 center, double radius)
 	return (res);
 }
 
+t_vec3	random_in_unit_sphere(void)
+{
+	t_vec3	p;
+	while (1)
+	{
+		p = random_vec3_limit(-1.0, 1.0);
+		if (vec3_length_squared(&p) < 1)
+			return (p);
+	}
+}
+
+t_vec3	random_unit_vec_sphere(void)
+{
+	return (r_vec3_normalize(random_in_unit_sphere()));
+}
+
 uint8_t	hit_sphere(t_sphere *sphere, t_ray *ray, double t_min, double t_max, t_hit_info *hit_info)
 {
 	t_vec3	oc;
@@ -41,7 +57,7 @@ uint8_t	hit_sphere(t_sphere *sphere, t_ray *ray, double t_min, double t_max, t_h
 	oc = r_substract_vec3(ray->origin, sphere->center);
 	a = vec3_length_squared(&ray->dir);
 	half_b = vec3_dot_product(&oc, &ray->dir);
-	c = vec3_length_squared(&oc) - sphere->radius * sphere->radius;
+	c = vec3_length_squared(&oc) - (sphere->radius * sphere->radius);
 	dis = half_b * half_b - a * c;
 	if (dis < 0)
 		return (0);
@@ -55,7 +71,8 @@ uint8_t	hit_sphere(t_sphere *sphere, t_ray *ray, double t_min, double t_max, t_h
 	}
 	hit_info->t = root;
 	hit_info->p = pos_on_ray(ray, hit_info->t);
-	outward_normal = r_vec3_scale((r_substract_vec3(hit_info->p, sphere->center)), (1.0 / sphere->radius));
-	set_face_normal(ray, &outward_normal, hit_info);
+	hit_info->normal = r_vec3_scale((r_substract_vec3(hit_info->p, sphere->center)), (1.0 / sphere->radius));
+	(void)outward_normal;
+	//set_face_normal(ray, &outward_normal, hit_info);
 	return (1);
 }
