@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 18:08:12 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/04 18:12:13 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/04 22:12:48 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ t_vec3	ray_color(t_ray *ray, t_objects *objects, int depth)
 		return (r_set_vec3(0.0, 0.0, 0.0));
 	if (world_hit(objects, ray, 0.001, DBL_MAX, &hit_info))
 	{
-		target = r_add_vec3(r_add_vec3(hit_info.p, hit_info.normal), random_in_unit_sphere());
-		return (ray_color(set_ray(ray, hit_info.p, r_substract_vec3(target, hit_info.p)), objects, depth - 1));
+		target = r_add_vec3(r_add_vec3(hit_info.p, hit_info.normal), random_unit_vec_sphere());
+		return (r_vec3_scale(ray_color(set_ray(ray, hit_info.p, r_substract_vec3(target, hit_info.p)), objects, depth - 1), 0.5));
 	}
 	unit_dir = r_vec3_normalize(ray->dir);
 	t = 0.5 * (unit_dir.y + 1.0);

@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:02:58 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/04 17:59:30 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/04 22:01:10 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@ int	render_image(t_data *data)
 	t_vec3	color;
 	t_ray	ray;
 	t_vec3	ray_dir;
-	double	win_size;
 	static int t = 0;
 
-	win_size = (double)(data->win_h * data->win_w);
 	if (!t)
 	{
 		for (int i = 0; i < data->win_h; i++)
@@ -67,7 +65,6 @@ int	render_image(t_data *data)
 					color = r_add_vec3(color, ray_color(&ray, &data->objects, data->max_depth));
 				}
 				draw_pixel(data, &color, i, j);
-				printf("%f\n", ((i + 1) * data->win_w + (j + 1)) / win_size * 100.0);
 			}
 		}
 		mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
