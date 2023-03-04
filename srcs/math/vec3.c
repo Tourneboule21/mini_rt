@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcrimet <lcrimet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:11:04 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/03 18:31:02 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/04 13:20:26 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,16 @@ void	set_vec3(t_vec3 *vec, double x, double y, double z)
 	vec->x = x;
 	vec->y = y;
 	vec->z = z;
+}
+
+t_vec3	r_set_vec3(double x, double y, double z)
+{
+	t_vec3	res;
+
+	res.x = x;
+	res.y = y;
+	res.z = z;
+	return (res);
 }
 
 double	vec3_length(t_vec3 *vec)
@@ -57,43 +67,43 @@ void	reverse_vec3(t_vec3 *vec)
 	vec->z = -vec->z;
 }
 
-t_vec3	r_vec3_scale(t_vec3 *vec, double scale)
+t_vec3	r_vec3_scale(t_vec3 vec, double scale)
 {
 	t_vec3	res;
 
-	res.x = vec->x * scale;
-	res.y = vec->y * scale;
-	res.z = vec->z * scale;
+	res.x = vec.x * scale;
+	res.y = vec.y * scale;
+	res.z = vec.z * scale;
 	return (res);
 }
 
-t_vec3	r_add_vec3(t_vec3 *dest, t_vec3 *add)
+t_vec3	r_add_vec3(t_vec3 dest, t_vec3 add)
 {
 	t_vec3	res;
 
-	res.x = dest->x + add->x;
-	res.y = dest->y + add->y;
-	res.z = dest->z + add->z;
+	res.x = dest.x + add.x;
+	res.y = dest.y + add.y;
+	res.z = dest.z + add.z;
 	return (res);
 }
 
-t_vec3	r_substract_vec3(t_vec3 *dest, t_vec3 *sub)
+t_vec3	r_substract_vec3(t_vec3 dest, t_vec3 sub)
 {
 	t_vec3	res;
 
-	res.x = dest->x - sub->x;
-	res.y = dest->y - sub->y;
-	res.z = dest->z - sub->z;
+	res.x = dest.x - sub.x;
+	res.y = dest.y - sub.y;
+	res.z = dest.z - sub.z;
 	return (res);
 }
 
-t_vec3	r_reverse_vec3(t_vec3 *vec)
+t_vec3	r_reverse_vec3(t_vec3 vec)
 {
 	t_vec3	res;
 
-	res.x = -vec->x;
-	res.y = -vec->y;
-	res.z = -vec->z;
+	res.x = -vec.x;
+	res.y = -vec.y;
+	res.z = -vec.z;
 	return (res);
 }
 
@@ -119,14 +129,21 @@ void	vec3_normalize(t_vec3 *vec)
 	vec->z /= vec3_length(vec);
 }
 
-t_vec3	r_vec3_normalize(t_vec3 *vec)
+t_vec3	r_vec3_normalize(t_vec3 vec)
 {
 	t_vec3	res;
 
-	res.x = vec->x / vec3_length(vec);
-	res.y = vec->y / vec3_length(vec);
-	res.z = vec->z / vec3_length(vec);
+	res.x = vec.x / vec3_length(&vec);
+	res.y = vec.y / vec3_length(&vec);
+	res.z = vec.z / vec3_length(&vec);
 	return (res);
+}
+
+uint8_t		vec3_equal(t_vec3 *vec1, t_vec3 *vec2)
+{
+	if (vec1->x == vec2->x && vec1->y == vec2->y && vec1->z == vec2->z)
+		return (1);
+	return (0);
 }
 
 void	print_vec3(t_vec3 *vec)

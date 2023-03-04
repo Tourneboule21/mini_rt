@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lcrimet <lcrimet@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/22 09:47:26 by lcrimet           #+#    #+#              #
-#    Updated: 2023/03/03 18:51:40 by lcrimet          ###   ########lyon.fr    #
+#    Updated: 2023/03/04 13:56:32 by lcrimet          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,12 @@ VERSION		= 0.0.1
 
 SRCS		= srcs/main.c \
 			  srcs/math/vec3.c \
+			  srcs/math/random_double.c \
 			  srcs/init/init_mlx.c \
 			  srcs/event_management/events.c \
 			  srcs/ray/ray.c \
+			  srcs/objects/sphere.c \
+			  srcs/objects/hit_infos.c \
 			  srcs/camera/camera.c \
 
 HEADERS		= includes \
@@ -100,6 +103,6 @@ banner :
 		@$(ECHO) '\x1b[1m\x1b[38;5;6mm::::m   m::::m   m::::mi::::::i n::::n    n::::ni::::::i                 R::::::R     R:::::R      T:::::::::T      '
 		@$(ECHO) '\x1b[1m\x1b[38;5;6mm::::m   m::::m   m::::mi::::::i n::::n    n::::ni::::::i                 R::::::R     R:::::R      T:::::::::T      '
 		@$(ECHO) '\x1b[1m\x1b[38;5;6mmmmmmm   mmmmmm   mmmmmmiiiiiiii nnnnnn    nnnnnniiiiiiii                 RRRRRRRR     RRRRRRR      TTTTTTTTTTT      '
-		@$(ECHO) '\x1b[1m\x1b[38;5;6m \x1b[0mversion \x1b[1m$(VERSION)                                                                                         \x1b[38;5;11m lcrimet\x1b[0m'
+		@$(ECHO) '\x1b[1m\x1b[38;5;6m \x1b[0mversion \x1b[1m$(VERSION)                                                                                        \x1b[38;5;11m lcrimet\x1b[0m'
 
 .PHONY: all clean fclean re bonus libs banner
