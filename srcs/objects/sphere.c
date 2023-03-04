@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 12:18:43 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/04 18:11:12 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/04 23:19:38 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,16 @@ t_vec3	random_in_unit_sphere(void)
 t_vec3	random_unit_vec_sphere(void)
 {
 	return (r_vec3_normalize(random_in_unit_sphere()));
+}
+
+t_vec3	randim_in_hemisphere(t_vec3 *normal)
+{
+	t_vec3	in_unit_sphere;
+
+	in_unit_sphere = random_in_unit_sphere();
+	if (vec3_dot_product(&in_unit_sphere, normal) > 0.0)
+		return (in_unit_sphere);
+	return (r_reverse_vec3(in_unit_sphere));
 }
 
 uint8_t	hit_sphere(t_sphere *sphere, t_ray *ray, double t_min, double t_max, t_hit_info *hit_info)

@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:36:31 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/04 22:59:54 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/04 23:28:11 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,18 @@ int	key_pressed(int keycode, t_data *data)
 		quit(data);
 	/* use it only with very very VERY low resolution like 200 pixel width
 	   cause the actual perf are awful */
-	//if (keycode == D)
-	//	data->objects.spheres[0].center.x += 0.1;
-	//else if (keycode == A)
-	//	data->objects.spheres[0].center.x -= 0.1;
-	//else if (keycode == W)
-	//	data->objects.spheres[0].center.z -= 0.1;
-	//else if (keycode == S)
-	//	data->objects.spheres[0].center.z += 0.1;
-	//else if (keycode == Q)
-	//	data->objects.spheres[0].center.y -= 0.1;
-	//else if (keycode == E)
-	//	data->objects.spheres[0].center.y += 0.1;
+	// if (keycode == D)
+		// data->objects.spheres[0].center.x += 0.1;
+	// else if (keycode == A)
+		// data->objects.spheres[0].center.x -= 0.1;
+	// else if (keycode == W)
+		// data->objects.spheres[0].center.z -= 0.1;
+	// else if (keycode == S)
+		// data->objects.spheres[0].center.z += 0.1;
+	// else if (keycode == Q)
+		// data->objects.spheres[0].center.y -= 0.1;
+	// else if (keycode == E)
+		// data->objects.spheres[0].center.y += 0.1;
 	return (0);
 }
 

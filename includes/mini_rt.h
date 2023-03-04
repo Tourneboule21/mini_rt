@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:05:06 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/04 23:00:13 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/04 23:30:02 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdint.h>
 # include <stdlib.h>
 # include <float.h>
+# include <sys/time.h>
 # include "mlx.h"
 # include "mlx_keycodes.h"
 
