@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:02:58 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 12:35:38 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 16:23:51 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,12 +131,22 @@ int	main(void)
 	if (!init_mlx(&data))
 		return (1);
 	init_camera(&data.camera);
-	data.objects.spheres = malloc(sizeof(t_sphere) * 2);
-	data.objects.spheres_nb = 2;
-	data.sample_per_pixel = 300;
+	data.objects.spheres = malloc(sizeof(t_sphere) * 4);
+	data.objects.spheres_nb = 4;
+	data.sample_per_pixel = 10;
 	data.max_depth = 10;
 	set_sphere(&data.objects.spheres[0], r_set_vec3(0.0, 0.0, -1.0), 0.5);
 	set_sphere(&data.objects.spheres[1], r_set_vec3(0.0, -100.5, -1.0), 100);
+	set_sphere(&data.objects.spheres[2], r_set_vec3(-1.0, 0.0, -1.0), 0.5);
+	set_sphere(&data.objects.spheres[3], r_set_vec3(1.0, 0.0, -1.0), 0.5);
+	data.objects.spheres[0].mat.type = METALLIC;
+	data.objects.spheres[1].mat.type = DIFFUSE;
+	data.objects.spheres[2].mat.type = METALLIC;
+	data.objects.spheres[3].mat.type = METALLIC;
+	data.objects.spheres[0].mat.albedo = r_set_vec3(0.7, 0.3, 0.3);
+	data.objects.spheres[1].mat.albedo = r_set_vec3(0.8, 0.8, 0.0);
+	data.objects.spheres[2].mat.albedo = r_set_vec3(0.8, 0.8, 0.8);
+	data.objects.spheres[3].mat.albedo = r_set_vec3(0.8, 0.6, 0.2);
 	mlx_loop_hook(data.mlx, render_image, &data);
 	mlx_hook(data.win, ON_DESTROY, 0, ft_close, &data);
 	mlx_hook(data.win, ON_KEYDOWN, 1L << 0, key_pressed, &data);

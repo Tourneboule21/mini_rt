@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 13:14:36 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/04 18:05:18 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 16:06:07 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ uint8_t	world_hit(t_objects *objects, t_ray *ray, double t_min, double t_max, t_
 		{
 			if (tmp_hit_info.t < closest)
 			{
-				hit = 1;
+				hit = i + 1;
 				closest = tmp_hit_info.t;
 				*hit_info = tmp_hit_info;
 			}

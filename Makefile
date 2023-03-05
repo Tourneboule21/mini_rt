@@ -6,7 +6,7 @@
 #    By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/22 09:47:26 by lcrimet           #+#    #+#              #
-#    Updated: 2023/03/04 22:30:30 by lcrimet          ###   ########lyon.fr    #
+#    Updated: 2023/03/05 15:40:04 by lcrimet          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ SRCS		= srcs/main.c \
 			  srcs/objects/sphere.c \
 			  srcs/objects/hit_infos.c \
 			  srcs/camera/camera.c \
+			  srcs/materials/diffuse.c \
+			  srcs/materials/metallic.c \
 
 HEADERS		= includes \
 			  

@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:11:04 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/04 14:49:42 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 16:02:02 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,16 @@ t_vec3	r_substract_vec3(t_vec3 dest, t_vec3 sub)
 	return (res);
 }
 
+t_vec3	r_mult_vec3(t_vec3 u, t_vec3 v)
+{
+	t_vec3	res;
+
+	res.x = u.x * v.x;
+	res.y = u.y * v.y;
+	res.z = u.z * v.z;
+	return (res);
+}
+
 t_vec3	r_reverse_vec3(t_vec3 vec)
 {
 	t_vec3	res;
@@ -159,4 +169,17 @@ t_vec3	random_vec3_limit(double min, double max)
 void	print_vec3(t_vec3 *vec)
 {
 	printf("(%f, %f, %f)", vec->x, vec->y, vec->z);
+}
+
+uint8_t	near_zero(t_vec3 *vec)
+{
+	double	s;
+	
+	s = 1e-8;
+	return ((fabs(vec->x) < s && fabs(vec->y) < s && fabs(vec->z) < s));
+}
+
+t_vec3	reflect(t_vec3 u, t_vec3 v)
+{
+	return (r_substract_vec3(u, r_vec3_scale(v, 2.0 * vec3_dot_product(&u, &v))));
 }

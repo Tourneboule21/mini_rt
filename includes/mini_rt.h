@@ -6,14 +6,14 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:05:06 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 12:30:39 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 16:24:48 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINI_RT_H
 # define MINI_RT_H
 
-# define WIN_WIDTH 1920
+# define WIN_WIDTH 800
 # define ASPECT_RATIO (16.0 / 9.0)
 
 # include <math.h>
@@ -35,6 +35,11 @@ enum {
 	EXIT_WIN = 8,
 	ON_EXPOSE = 12,
 	ON_DESTROY = 17
+};
+
+enum {
+	DIFFUSE,
+	METALLIC,
 };
 
 typedef struct s_vec3
@@ -85,6 +90,12 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+typedef struct s_material
+{
+	uint8_t	type;
+	t_vec3	albedo;
+}	t_material;
+
 typedef struct s_hit_info
 {
 	t_vec3	p;
@@ -95,8 +106,9 @@ typedef struct s_hit_info
 
 typedef struct s_sphere
 {
-	t_vec3	center;
-	double	radius;
+	t_vec3		center;
+	double		radius;
+	t_material	mat;
 }	t_sphere;
 
 typedef struct s_objects
@@ -130,6 +142,7 @@ void		reverse_vec3(t_vec3 *vec);
 t_vec3		r_vec3_scale(t_vec3 vec, double scale);
 t_vec3		r_add_vec3(t_vec3 dest, t_vec3 add);
 t_vec3		r_substract_vec3(t_vec3 dest, t_vec3 sub);
+t_vec3		r_mult_vec3(t_vec3 u, t_vec3 v);
 t_vec3		r_reverse_vec3(t_vec3 vec);
 double		vec3_dot_product(t_vec3 *vec1, t_vec3 *vec2);
 t_vec3		vec3_cross_product(t_vec3 *vec1, t_vec3 *vec2);
@@ -139,12 +152,18 @@ uint8_t		vec3_equal(t_vec3 *vec1, t_vec3 *vec2);
 t_vec3		random_vec3(void);
 t_vec3		random_vec3_limit(double min, double max);
 void		print_vec3(t_vec3 *vec);
+uint8_t		near_zero(t_vec3 *vec);
+t_vec3		reflect(t_vec3 u, t_vec3 v);
 
 void		set_sphere(t_sphere *sphere, t_vec3 center, double radius);
 t_sphere	r_set_sphere(t_vec3 center, double radius);
 t_vec3		random_in_unit_sphere(void);
 t_vec3		random_unit_vec_sphere(void);
+t_vec3		random_in_hemisphere(t_vec3 *normal);
 uint8_t		hit_sphere(t_sphere *sphere, t_ray *ray, double t_min, double t_max, t_hit_info *hit_info);
+
+uint8_t		diffuse_scatter(t_hit_info *hit_info, t_vec3 *color_attenuation, t_ray *scattered, t_material *mat);
+uint8_t		metallic_scatter(t_ray *ray_in, t_hit_info *hit_info, t_vec3 *color_attenuation, t_ray *scattered, t_material *mat);
 
 uint8_t		world_hit(t_objects *objects, t_ray *ray, double t_min, double t_max, t_hit_info *hit_info);
 void		set_face_normal(t_ray *ray, t_vec3 *outward_normal, t_hit_info *hit_info);

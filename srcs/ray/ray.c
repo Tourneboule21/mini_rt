@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 18:08:12 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/04 22:38:48 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 16:20:42 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,30 @@ t_vec3	ray_color(t_ray *ray, t_objects *objects, int depth)
 	t_hit_info	hit_info;
 	t_vec3		color;
 	t_vec3		unit_dir;
-	t_vec3		target;
+	t_ray		scattered;
+	t_vec3		color_attenuation;
+	uint8_t		hit;
 	double		t;
 
 	if (depth <= 0)
 		return (r_set_vec3(0.0, 0.0, 0.0));
-	if (world_hit(objects, ray, 0.001, DBL_MAX, &hit_info))
+	hit = world_hit(objects, ray, 0.001, DBL_MAX, &hit_info);
+	if (hit)
 	{
-		target = r_add_vec3(r_add_vec3(hit_info.p, hit_info.normal), random_unit_vec_sphere());
-		return (r_vec3_scale(ray_color(set_ray(ray, hit_info.p, r_substract_vec3(target, hit_info.p)), objects, depth - 1), 0.5));
+		//target = r_add_vec3(r_add_vec3(hit_info.p, hit_info.normal), random_unit_vec_sphere());
+		//target = r_add_vec3(hit_info.p, random_in_hemisphere(&hit_info.normal));
+		//return (r_vec3_scale(ray_color(set_ray(ray, hit_info.p, r_substract_vec3(target, hit_info.p)), objects, depth - 1), 0.5));
+		if (objects->spheres[hit -1].mat.type == DIFFUSE)
+		{
+			if (diffuse_scatter(&hit_info, &color_attenuation, &scattered, &objects->spheres[hit -1].mat))
+				return (r_mult_vec3(color_attenuation, ray_color(&scattered, objects, depth - 1)));
+		}
+		else if (objects->spheres[hit -1].mat.type == METALLIC)
+		{
+			if (metallic_scatter(ray, &hit_info, &color_attenuation, &scattered, &objects->spheres[hit -1].mat))
+				return (r_mult_vec3(color_attenuation, ray_color(&scattered, objects, depth - 1)));
+		}
+		return (r_set_vec3(0.0, 0.0, 0.0));
 	}
 	unit_dir = r_vec3_normalize(ray->dir);
 	t = 0.5 * (unit_dir.y + 1.0);
