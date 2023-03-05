@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 12:18:43 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 12:46:58 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 18:49:13 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ uint8_t	hit_sphere(t_sphere *sphere, t_ray *ray, double t_min, double t_max, t_h
 	}
 	hit_info->t = root;
 	hit_info->p = pos_on_ray(ray, hit_info->t);
-	hit_info->normal = r_vec3_scale((r_substract_vec3(hit_info->p, sphere->center)), (1.0 / sphere->radius));
-	(void)outward_normal;
-	//set_face_normal(ray, &outward_normal, hit_info);
+	outward_normal = r_vec3_scale((r_substract_vec3(hit_info->p, sphere->center)), (1.0 / sphere->radius));
+	set_face_normal(ray, &outward_normal, hit_info);
 	return (1);
 }

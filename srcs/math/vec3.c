@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:11:04 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 16:02:02 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 18:50:41 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,18 +134,23 @@ t_vec3	vec3_cross_product(t_vec3 *vec1, t_vec3 *vec2)
 
 void	vec3_normalize(t_vec3 *vec)
 {
-	vec->x /= vec3_length(vec);
-	vec->y /= vec3_length(vec);
-	vec->z /= vec3_length(vec);
+	double	length;
+
+	length = vec3_length(vec);
+	vec->x /= length;
+	vec->y /= length;
+	vec->z /= length;
 }
 
 t_vec3	r_vec3_normalize(t_vec3 vec)
 {
 	t_vec3	res;
+	double	length;
 
-	res.x = vec.x / vec3_length(&vec);
-	res.y = vec.y / vec3_length(&vec);
-	res.z = vec.z / vec3_length(&vec);
+	length = vec3_length(&vec);
+	res.x = vec.x / length;
+	res.y = vec.y / length;
+	res.z = vec.z / length;
 	return (res);
 }
 
@@ -182,4 +187,18 @@ uint8_t	near_zero(t_vec3 *vec)
 t_vec3	reflect(t_vec3 u, t_vec3 v)
 {
 	return (r_substract_vec3(u, r_vec3_scale(v, 2.0 * vec3_dot_product(&u, &v))));
+}
+
+t_vec3	refract(t_vec3 u, t_vec3 v, double theta_i_sup_theta_o)
+{
+	double	cos_theta;
+	t_vec3	r_out_perp;
+	t_vec3	r_out_para;
+	t_vec3	rev_u;
+
+	rev_u = r_reverse_vec3(u);
+	cos_theta = fmin(vec3_dot_product(&rev_u, &v), 1.0);
+	r_out_perp = r_vec3_scale(r_add_vec3(u, r_vec3_scale(v, cos_theta)), theta_i_sup_theta_o);
+	r_out_para = r_vec3_scale(v, -sqrt(fabs(1.0 - vec3_length_squared(&r_out_perp))));
+	return (r_add_vec3(r_out_perp, r_out_para));
 }

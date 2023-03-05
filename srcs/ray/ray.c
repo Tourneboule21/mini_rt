@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 18:08:12 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 16:20:42 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 18:05:47 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ t_vec3	ray_color(t_ray *ray, t_objects *objects, int depth)
 		else if (objects->spheres[hit -1].mat.type == METALLIC)
 		{
 			if (metallic_scatter(ray, &hit_info, &color_attenuation, &scattered, &objects->spheres[hit -1].mat))
+				return (r_mult_vec3(color_attenuation, ray_color(&scattered, objects, depth - 1)));
+		}
+		else if (objects->spheres[hit -1].mat.type == DIELECTRIC)
+		{
+			if (dielectric_scatter(ray, &hit_info, &color_attenuation, &scattered, &objects->spheres[hit -1].mat))
 				return (r_mult_vec3(color_attenuation, ray_color(&scattered, objects, depth - 1)));
 		}
 		return (r_set_vec3(0.0, 0.0, 0.0));

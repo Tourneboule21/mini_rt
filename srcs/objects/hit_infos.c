@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 13:14:36 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 16:06:07 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 18:40:41 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ uint8_t	world_hit(t_objects *objects, t_ray *ray, double t_min, double t_max, t_
 
 void	set_face_normal(t_ray *ray, t_vec3 *outward_normal, t_hit_info *hit_info)
 {
-	hit_info->front_face = (vec3_dot_product(&ray->dir, outward_normal) < 0);
+	hit_info->front_face = vec3_dot_product(&ray->dir, outward_normal) < 0;
 	if (hit_info->front_face)
 		hit_info->normal = *outward_normal;
 	else

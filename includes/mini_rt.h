@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:05:06 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 16:41:29 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 18:44:20 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ enum {
 enum {
 	DIFFUSE,
 	METALLIC,
+	DIELECTRIC,
 };
 
 typedef struct s_vec3
@@ -95,6 +96,7 @@ typedef struct s_material
 	uint8_t	type;
 	t_vec3	albedo;
 	double	fuzz;
+	double	ior;
 }	t_material;
 
 typedef struct s_hit_info
@@ -155,6 +157,7 @@ t_vec3		random_vec3_limit(double min, double max);
 void		print_vec3(t_vec3 *vec);
 uint8_t		near_zero(t_vec3 *vec);
 t_vec3		reflect(t_vec3 u, t_vec3 v);
+t_vec3		refract(t_vec3 u, t_vec3 v, double theta_i_sup_theta_o);
 
 void		set_sphere(t_sphere *sphere, t_vec3 center, double radius);
 t_sphere	r_set_sphere(t_vec3 center, double radius);
@@ -165,6 +168,7 @@ uint8_t		hit_sphere(t_sphere *sphere, t_ray *ray, double t_min, double t_max, t_
 
 uint8_t		diffuse_scatter(t_hit_info *hit_info, t_vec3 *color_attenuation, t_ray *scattered, t_material *mat);
 uint8_t		metallic_scatter(t_ray *ray_in, t_hit_info *hit_info, t_vec3 *color_attenuation, t_ray *scattered, t_material *mat);
+uint8_t		dielectric_scatter(t_ray *ray_in, t_hit_info *hit_info, t_vec3 *color_attenuation, t_ray *scattered, t_material *mat);
 
 uint8_t		world_hit(t_objects *objects, t_ray *ray, double t_min, double t_max, t_hit_info *hit_info);
 void		set_face_normal(t_ray *ray, t_vec3 *outward_normal, t_hit_info *hit_info);
