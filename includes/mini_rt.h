@@ -6,14 +6,14 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:05:06 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/04 23:30:02 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 12:30:39 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINI_RT_H
 # define MINI_RT_H
 
-# define WIN_WIDTH 800
+# define WIN_WIDTH 1920
 # define ASPECT_RATIO (16.0 / 9.0)
 
 # include <math.h>

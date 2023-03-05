@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:02:58 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/04 23:33:28 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 12:35:38 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,30 @@ long	get_start_time_ms(void)
 	return (start_time);
 }
 
+void	print_render_time(long render_time)
+{
+	int	sec;
+	int	min;
+	int	hours;
+
+	sec = render_time / 1000;
+	min = 0;
+	hours = 0;
+	if (sec)
+		min = sec / 60;
+	if (min)
+		hours = min / 60;
+	printf("render done in ");
+	if (hours)
+		printf("%dh %dmin %ds %ldms\n", hours, min % 60, sec % 60, render_time % 1000);
+	else if (min)
+		printf("%dmin %ds %ldms\n", min, sec % 60, render_time % 1000);
+	else if (sec)
+		printf("%ds %ldms\n", sec, render_time % 1000);
+	else
+		printf("%ldms\n",render_time % 1000);
+}
+
 /* comment the t value check if you want to see scene in "real" time 
    (need to be in super low resolution)*/
 
@@ -94,7 +118,7 @@ int	render_image(t_data *data)
 			}
 		}
 		mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
-		printf("render done in %ldms\n", get_current_time_ms(render_time));
+		print_render_time(get_current_time_ms(render_time));
 	}
 	t = 1;
 	return (0);
@@ -109,8 +133,8 @@ int	main(void)
 	init_camera(&data.camera);
 	data.objects.spheres = malloc(sizeof(t_sphere) * 2);
 	data.objects.spheres_nb = 2;
-	data.sample_per_pixel = 10;
-	data.max_depth = 5;
+	data.sample_per_pixel = 300;
+	data.max_depth = 10;
 	set_sphere(&data.objects.spheres[0], r_set_vec3(0.0, 0.0, -1.0), 0.5);
 	set_sphere(&data.objects.spheres[1], r_set_vec3(0.0, -100.5, -1.0), 100);
 	mlx_loop_hook(data.mlx, render_image, &data);
