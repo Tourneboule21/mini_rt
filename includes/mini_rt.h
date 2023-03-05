@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:05:06 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 18:57:21 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 20:57:37 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_camera
 	t_vec3	horizontal;
 	t_vec3	vertical;
 	t_vec3	low_left_corner;
+	int		fov;
 }	t_camera;
 
 typedef struct s_bgra
@@ -179,7 +180,7 @@ t_vec3		pos_on_ray(t_ray *ray, double t);
 t_vec3		ray_color(t_ray *ray, t_objects *objects, int depth);
 t_vec3		get_ray_dir(t_camera *camera, double u, double v);
 
-void		init_camera(t_camera *camera);
+void		init_camera(t_camera *camera, t_vec3 lookfrom, t_vec3 lookat, t_vec3 vup);
 
 int			init_mlx(t_data *data);
 

@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:02:58 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 19:45:05 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 21:15:46 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,8 @@ int	main(void)
 
 	if (!init_mlx(&data))
 		return (1);
-	init_camera(&data.camera);
+	data.camera.fov = 90;
+	init_camera(&data.camera, r_set_vec3(1.0, 1.0, 0.0), r_set_vec3(0.0, 0.0, -1.0), r_set_vec3(0.0, 1.0, 0.0));
 	data.objects.spheres = malloc(sizeof(t_sphere) * 4);
 	data.objects.spheres_nb = 4;
 	data.sample_per_pixel = 10;
@@ -148,7 +149,7 @@ int	main(void)
 	data.objects.spheres[2].mat.albedo = r_set_vec3(0.8, 0.8, 0.8);
 	data.objects.spheres[3].mat.albedo = r_set_vec3(0.8, 0.6, 0.8);
 	data.objects.spheres[2].mat.ior = 1.5;
-	data.objects.spheres[3].mat.fuzz = 1.0;
+	data.objects.spheres[3].mat.fuzz = 0.5;
 	mlx_loop_hook(data.mlx, render_image, &data);
 	mlx_hook(data.win, ON_DESTROY, 0, ft_close, &data);
 	mlx_hook(data.win, ON_KEYDOWN, 1L << 0, key_pressed, &data);
