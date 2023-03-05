@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:02:58 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 18:45:05 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 19:45:05 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ int	main(void)
 	data.objects.spheres = malloc(sizeof(t_sphere) * 4);
 	data.objects.spheres_nb = 4;
 	data.sample_per_pixel = 10;
-	data.max_depth = 10;
+	data.max_depth = 5;
 	set_sphere(&data.objects.spheres[0], r_set_vec3(0.0, 0.0, -1.0), 0.5);
 	set_sphere(&data.objects.spheres[1], r_set_vec3(0.0, -100.5, -1.0), 100);
 	set_sphere(&data.objects.spheres[2], r_set_vec3(-1.0, 0.0, -1.0), 0.5);
@@ -144,7 +144,7 @@ int	main(void)
 	data.objects.spheres[2].mat.type = DIELECTRIC;
 	data.objects.spheres[3].mat.type = METALLIC;
 	data.objects.spheres[0].mat.albedo = r_set_vec3(1.0, 0.2, 0.2);
-	data.objects.spheres[1].mat.albedo = r_set_vec3(0.8, 0.8, 0.2);
+	data.objects.spheres[1].mat.albedo = r_set_vec3(0.2, 0.2, 0.8);
 	data.objects.spheres[2].mat.albedo = r_set_vec3(0.8, 0.8, 0.8);
 	data.objects.spheres[3].mat.albedo = r_set_vec3(0.8, 0.6, 0.8);
 	data.objects.spheres[2].mat.ior = 1.5;
