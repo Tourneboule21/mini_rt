@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:05:06 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 16:24:48 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 16:41:29 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct s_material
 {
 	uint8_t	type;
 	t_vec3	albedo;
+	double	fuzz;
 }	t_material;
 
 typedef struct s_hit_info
