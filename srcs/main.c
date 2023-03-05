@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:02:58 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 21:15:46 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 22:09:53 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	render_image(t_data *data)
 {
 	t_vec3	color;
 	t_ray	ray;
-	t_vec3	ray_dir;
+	// t_vec3	ray_dir;
 	long	render_time;
 	static int t = 0;
 
@@ -110,8 +110,8 @@ int	render_image(t_data *data)
 				{
 					double u = (j + random_double()) / (data->win_w - 1);
 					double v = (i + random_double()) / (data->win_h - 1);
-					ray_dir = get_ray_dir(&data->camera, u, v);
-					init_ray(&ray, &data->camera.origin, &ray_dir);
+					// ray_dir = get_ray_dir(&data->camera, u, v);
+					init_ray_from_camera(&ray, &data->camera, u, v);
 					color = r_add_vec3(color, ray_color(&ray, &data->objects, data->max_depth));
 				}
 				draw_pixel(data, &color, i, j);
@@ -127,14 +127,20 @@ int	render_image(t_data *data)
 int	main(void)
 {
 	t_data	data;
+	t_vec3	lookfrom;
+	t_vec3	lookat;
+	t_vec3	focus;
 
 	if (!init_mlx(&data))
 		return (1);
-	data.camera.fov = 90;
-	init_camera(&data.camera, r_set_vec3(1.0, 1.0, 0.0), r_set_vec3(0.0, 0.0, -1.0), r_set_vec3(0.0, 1.0, 0.0));
+	data.camera.fov = 20;
+	lookfrom = r_set_vec3(3.0, 3.0, 2.0);
+	lookat = r_set_vec3(0.0, 0.0, -1.0);
+	focus = r_substract_vec3(lookfrom, lookat);
+	init_camera(&data.camera, lookfrom, lookat, r_set_vec3(0.0, 1.0, 0.0), 2.0, (vec3_length(&focus)));
 	data.objects.spheres = malloc(sizeof(t_sphere) * 4);
 	data.objects.spheres_nb = 4;
-	data.sample_per_pixel = 10;
+	data.sample_per_pixel = 300;
 	data.max_depth = 5;
 	set_sphere(&data.objects.spheres[0], r_set_vec3(0.0, 0.0, -1.0), 0.5);
 	set_sphere(&data.objects.spheres[1], r_set_vec3(0.0, -100.5, -1.0), 100);

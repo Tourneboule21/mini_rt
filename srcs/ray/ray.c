@@ -6,11 +6,29 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 18:08:12 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 18:05:47 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 22:00:55 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
+
+void	init_ray_from_camera(t_ray *ray, t_camera *camera, double s, double t)
+{
+	t_vec3	rd;
+	t_vec3	offset;
+	t_vec3	vertical_scale;
+	t_vec3	horizontal_scale;
+
+	vertical_scale = r_vec3_scale(camera->vertical, t);
+	horizontal_scale = r_vec3_scale(camera->horizontal, s);
+	rd = r_vec3_scale(random_in_unit_disk(), camera->lens_radius);
+	offset = r_add_vec3(r_vec3_scale(camera->u, rd.x), r_vec3_scale(camera->v, rd.y));
+	ray->origin = r_add_vec3(camera->origin, offset);
+	ray->dir = r_add_vec3(camera->low_left_corner, horizontal_scale);
+	add_vec3(&ray->dir, &vertical_scale);
+	substract_vec3(&ray->dir, &camera->origin);
+	substract_vec3(&ray->dir, &offset);
+}
 
 void	init_ray(t_ray *ray, t_vec3 *origin, t_vec3 *dir)
 {

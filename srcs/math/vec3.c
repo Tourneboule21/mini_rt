@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:11:04 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 18:50:41 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 21:43:02 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,4 +201,15 @@ t_vec3	refract(t_vec3 u, t_vec3 v, double theta_i_sup_theta_o)
 	r_out_perp = r_vec3_scale(r_add_vec3(u, r_vec3_scale(v, cos_theta)), theta_i_sup_theta_o);
 	r_out_para = r_vec3_scale(v, -sqrt(fabs(1.0 - vec3_length_squared(&r_out_perp))));
 	return (r_add_vec3(r_out_perp, r_out_para));
+}
+
+t_vec3	random_in_unit_disk()
+{
+	t_vec3	p;
+	while (1)
+	{
+		set_vec3(&p, random_double_limit(-1.0, 1.0), random_double_limit(-1.0, 1.0), 0.0);
+		if (vec3_length_squared(&p) < 1)
+			return (p);
+	}
 }
