@@ -6,18 +6,18 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 13:14:36 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 18:40:41 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 23:36:33 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-uint8_t	world_hit(t_objects *objects, t_ray *ray, double t_min, double t_max, t_hit_info *hit_info)
+uint32_t	world_hit(t_objects *objects, t_ray *ray, double t_min, double t_max, t_hit_info *hit_info)
 {
-	uint8_t		i;
+	uint32_t	i;
 	t_hit_info	tmp_hit_info;
 	double		closest;
-	uint8_t		hit;
+	uint32_t	hit;
 
 	i = 0;
 	hit = 0;

@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:02:58 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 22:09:53 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 23:13:46 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,33 +129,34 @@ int	main(void)
 	t_data	data;
 	t_vec3	lookfrom;
 	t_vec3	lookat;
-	t_vec3	focus;
+	// t_vec3	focus;
 
 	if (!init_mlx(&data))
 		return (1);
 	data.camera.fov = 20;
-	lookfrom = r_set_vec3(3.0, 3.0, 2.0);
-	lookat = r_set_vec3(0.0, 0.0, -1.0);
-	focus = r_substract_vec3(lookfrom, lookat);
-	init_camera(&data.camera, lookfrom, lookat, r_set_vec3(0.0, 1.0, 0.0), 2.0, (vec3_length(&focus)));
-	data.objects.spheres = malloc(sizeof(t_sphere) * 4);
-	data.objects.spheres_nb = 4;
-	data.sample_per_pixel = 300;
+	lookfrom = r_set_vec3(13.0, 2.0, 3.0);
+	lookat = r_set_vec3(0.0, 0.0, 0.0);
+	// focus = r_substract_vec3(lookfrom, lookat);
+	init_camera(&data.camera, lookfrom, lookat, r_set_vec3(0.0, 1.0, 0.0), 0.1, 10.0);
+	data.sample_per_pixel = 10;
 	data.max_depth = 5;
-	set_sphere(&data.objects.spheres[0], r_set_vec3(0.0, 0.0, -1.0), 0.5);
-	set_sphere(&data.objects.spheres[1], r_set_vec3(0.0, -100.5, -1.0), 100);
-	set_sphere(&data.objects.spheres[2], r_set_vec3(-1.0, 0.0, -1.0), 0.5);
-	set_sphere(&data.objects.spheres[3], r_set_vec3(1.0, 0.0, -1.0), 0.5);
-	data.objects.spheres[0].mat.type = DIFFUSE;
-	data.objects.spheres[1].mat.type = DIFFUSE;
-	data.objects.spheres[2].mat.type = DIELECTRIC;
-	data.objects.spheres[3].mat.type = METALLIC;
-	data.objects.spheres[0].mat.albedo = r_set_vec3(1.0, 0.2, 0.2);
-	data.objects.spheres[1].mat.albedo = r_set_vec3(0.2, 0.2, 0.8);
-	data.objects.spheres[2].mat.albedo = r_set_vec3(0.8, 0.8, 0.8);
-	data.objects.spheres[3].mat.albedo = r_set_vec3(0.8, 0.6, 0.8);
-	data.objects.spheres[2].mat.ior = 1.5;
-	data.objects.spheres[3].mat.fuzz = 0.5;
+	// data.objects.spheres = malloc(sizeof(t_sphere) * 4);
+	// data.objects.spheres_nb = 4;
+	// set_sphere(&data.objects.spheres[0], r_set_vec3(0.0, 0.0, -1.0), 0.5);
+	// set_sphere(&data.objects.spheres[1], r_set_vec3(0.0, -100.5, -1.0), 100);
+	// set_sphere(&data.objects.spheres[2], r_set_vec3(-1.0, 0.0, -1.0), 0.5);
+	// set_sphere(&data.objects.spheres[3], r_set_vec3(1.0, 0.0, -1.0), 0.5);
+	// data.objects.spheres[0].mat.type = DIFFUSE;
+	// data.objects.spheres[1].mat.type = DIFFUSE;
+	// data.objects.spheres[2].mat.type = DIELECTRIC;
+	// data.objects.spheres[3].mat.type = METALLIC;
+	// data.objects.spheres[0].mat.albedo = r_set_vec3(1.0, 0.2, 0.2);
+	// data.objects.spheres[1].mat.albedo = r_set_vec3(0.2, 0.2, 0.8);
+	// data.objects.spheres[2].mat.albedo = r_set_vec3(0.8, 0.8, 0.8);
+	// data.objects.spheres[3].mat.albedo = r_set_vec3(0.8, 0.6, 0.8);
+	// data.objects.spheres[2].mat.ior = 1.5;
+	// data.objects.spheres[3].mat.fuzz = 0.5;
+	random_world(&data.objects);
 	mlx_loop_hook(data.mlx, render_image, &data);
 	mlx_hook(data.win, ON_DESTROY, 0, ft_close, &data);
 	mlx_hook(data.win, ON_KEYDOWN, 1L << 0, key_pressed, &data);

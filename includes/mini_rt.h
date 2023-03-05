@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:05:06 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 21:49:52 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 23:36:37 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINI_RT_H
 
 # define WIN_WIDTH 800
-# define ASPECT_RATIO (16.0 / 9.0)
+# define ASPECT_RATIO (3.0 / 2.0)
 
 # include <math.h>
 # include <stdio.h>
@@ -176,7 +176,7 @@ uint8_t		diffuse_scatter(t_hit_info *hit_info, t_vec3 *color_attenuation, t_ray 
 uint8_t		metallic_scatter(t_ray *ray_in, t_hit_info *hit_info, t_vec3 *color_attenuation, t_ray *scattered, t_material *mat);
 uint8_t		dielectric_scatter(t_ray *ray_in, t_hit_info *hit_info, t_vec3 *color_attenuation, t_ray *scattered, t_material *mat);
 
-uint8_t		world_hit(t_objects *objects, t_ray *ray, double t_min, double t_max, t_hit_info *hit_info);
+uint32_t	world_hit(t_objects *objects, t_ray *ray, double t_min, double t_max, t_hit_info *hit_info);
 void		set_face_normal(t_ray *ray, t_vec3 *outward_normal, t_hit_info *hit_info);
 
 void		init_ray(t_ray *ray, t_vec3 *origin, t_vec3 *dir);
@@ -196,5 +196,7 @@ double		random_double_limit(double min, double max);
 void		*quit(t_data *data);
 int			key_pressed(int keycode, t_data *data);
 int			ft_close(void *param);
+
+void		random_world(t_objects *objects);
 
 #endif

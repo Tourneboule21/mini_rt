@@ -6,7 +6,7 @@
 #    By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/22 09:47:26 by lcrimet           #+#    #+#              #
-#    Updated: 2023/03/05 17:51:36 by lcrimet          ###   ########lyon.fr    #
+#    Updated: 2023/03/05 22:56:07 by lcrimet          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS		= srcs/main.c \
 			  srcs/materials/diffuse.c \
 			  srcs/materials/metallic.c \
 			  srcs/materials/dielectric.c \
+			  srcs/random_scene.c \
 
 HEADERS		= includes \
 			  

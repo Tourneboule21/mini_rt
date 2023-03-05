@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 18:08:12 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 22:00:55 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 23:33:50 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_vec3	ray_color(t_ray *ray, t_objects *objects, int depth)
 	t_vec3		unit_dir;
 	t_ray		scattered;
 	t_vec3		color_attenuation;
-	uint8_t		hit;
+	uint32_t	hit;
 	double		t;
 
 	if (depth <= 0)
