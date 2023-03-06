@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+         #
+#    By: lcrimet <lcrimet@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/22 09:47:26 by lcrimet           #+#    #+#              #
-#    Updated: 2023/03/05 22:56:07 by lcrimet          ###   ########lyon.fr    #
+#    Updated: 2023/03/06 16:42:56 by lcrimet          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ VERSION		= 0.0.1
 SRCS		= srcs/main.c \
 			  srcs/math/vec3.c \
 			  srcs/math/random_double.c \
+			  srcs/math/denoising.c \
 			  srcs/init/init_mlx.c \
 			  srcs/event_management/events.c \
 			  srcs/ray/ray.c \
@@ -47,7 +48,7 @@ BUILDDIR	= .build
 OBJS		= $(SRCS:%.c=$(BUILDDIR)/%.o) 
 DEPS		= $(SRCS:%.c=$(BUILDDIR)/%.d) 
 CC			= cc
-CCWFLGS		= -Wall -Wextra -Werror #-g3 -fsanitize=address
+CCWFLGS		= -Wall -Wextra -Werror -pthread #-g3 -fsanitize=thread
 CCDBGFLGS	= -DDEBUG
 CCDEPSFLAGS	= -MMD -MP
 RM			= rm -Rf

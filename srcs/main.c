@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
+/*   By: lcrimet <lcrimet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:02:58 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 23:13:46 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/06 16:59:17 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,56 @@ void	print_render_time(long render_time)
 		printf("%ldms\n",render_time % 1000);
 }
 
+void	*routine(void *param)
+{
+	t_data	*data;
+	t_vec3	color;
+	t_ray	ray;
+	int		i;
+	int		j;
+
+	data = (t_data*)param;
+	i = 0;
+	j = 0;
+	while (1)
+	{
+		// printf("%d\n", data->index);
+		pthread_mutex_lock(&data->mutex);
+		if (data->index >= data->win_h * data->win_w)
+			return (pthread_mutex_unlock(&data->mutex), param);
+		if (i * data->win_w + j >= data->index)
+			data->index++;
+		else
+		{
+			pthread_mutex_unlock(&data->mutex);
+			set_vec3(&color, 0.0, 0.0, 0.0);
+			for (int k = 0; k < data->sample_per_pixel; k++)
+			{
+				double u = (j + random_double()) / (data->win_w - 1);
+				double v = (i + random_double()) / (data->win_h - 1);
+				// ray_dir = get_ray_dir(&data->camera, u, v);
+				init_ray_from_camera(&ray, &data->camera, u, v);
+				color = r_add_vec3(color, ray_color(&ray, &data->objects, data->max_depth));
+			}
+			draw_pixel(data, &color, i, j);
+			j++;
+			if (j >= data->win_w)
+			{
+				j = 0;
+				i++;
+			}
+		}
+	}
+	return (param);
+}
+
 /* comment the t value check if you want to see scene in "real" time 
    (need to be in super low resolution)*/
 
 int	render_image(t_data *data)
 {
-	t_vec3	color;
-	t_ray	ray;
+	// t_vec3	color;
+	// t_ray	ray;
 	// t_vec3	ray_dir;
 	long	render_time;
 	static int t = 0;
@@ -101,22 +144,29 @@ int	render_image(t_data *data)
 	render_time = get_start_time_ms();
 	if (!t)
 	{
-		for (int i = 0; i < data->win_h; i++)
-		{
-			for (int j = 0; j < data->win_w; j++)
-			{
-				set_vec3(&color, 0.0, 0.0, 0.0);
-				for (int k = 0; k < data->sample_per_pixel; k++)
-				{
-					double u = (j + random_double()) / (data->win_w - 1);
-					double v = (i + random_double()) / (data->win_h - 1);
-					// ray_dir = get_ray_dir(&data->camera, u, v);
-					init_ray_from_camera(&ray, &data->camera, u, v);
-					color = r_add_vec3(color, ray_color(&ray, &data->objects, data->max_depth));
-				}
-				draw_pixel(data, &color, i, j);
-			}
-		}
+		pthread_mutex_init(&data->mutex, NULL);
+		for (int i = 0; i < 4; i++)
+			pthread_create(&data->thread[i], NULL, routine, data);
+		// for (int i = 0; i < data->win_h; i++)
+		// {
+		// 	for (int j = 0; j < data->win_w; j++)
+		// 	{
+		// 		set_vec3(&color, 0.0, 0.0, 0.0);
+		// 		for (int k = 0; k < data->sample_per_pixel; k++)
+		// 		{
+		// 			double u = (j + random_double()) / (data->win_w - 1);
+		// 			double v = (i + random_double()) / (data->win_h - 1);
+		// 			// ray_dir = get_ray_dir(&data->camera, u, v);
+		// 			init_ray_from_camera(&ray, &data->camera, u, v);
+		// 			color = r_add_vec3(color, ray_color(&ray, &data->objects, data->max_depth));
+		// 		}
+		// 		draw_pixel(data, &color, i, j);
+		// 	}
+		// }
+		// median_denoise(data->renderer, data->win_w, data->win_h);
+		for (int i = 0; i < 4; i++)
+			pthread_join(data->thread[i], NULL);
+		pthread_mutex_destroy(&data->mutex);
 		mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
 		print_render_time(get_current_time_ms(render_time));
 	}
@@ -133,7 +183,9 @@ int	main(void)
 
 	if (!init_mlx(&data))
 		return (1);
+	data.thread = malloc(sizeof(pthread_t) * 4);
 	data.camera.fov = 20;
+	data.index = -1;
 	lookfrom = r_set_vec3(13.0, 2.0, 3.0);
 	lookat = r_set_vec3(0.0, 0.0, 0.0);
 	// focus = r_substract_vec3(lookfrom, lookat);

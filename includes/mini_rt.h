@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_rt.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
+/*   By: lcrimet <lcrimet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:05:06 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 23:36:37 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/06 15:58:18 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@
 # include <stdint.h>
 # include <stdlib.h>
 # include <float.h>
+# include <string.h>
 # include <sys/time.h>
+# include <pthread.h>
 # include "mlx.h"
 # include "mlx_keycodes.h"
 
@@ -127,16 +129,19 @@ typedef struct s_objects
 
 typedef struct s_data
 {
-	void		*mlx;
-	void		*win;
-	t_img		img;
-	uint32_t	*renderer;
-	t_camera	camera;
-	t_objects	objects;
-	int			win_w;
-	int			win_h;
-	int			sample_per_pixel;
-	int			max_depth;
+	void			*mlx;
+	void			*win;
+	t_img			img;
+	uint32_t		*renderer;
+	t_camera		camera;
+	t_objects		objects;
+	int				win_w;
+	int				win_h;
+	int				sample_per_pixel;
+	int				max_depth;
+	int				index;
+	pthread_t		*thread;
+	pthread_mutex_t	mutex;
 }	t_data;
 
 void		set_vec3(t_vec3 *vec, double x, double y, double z);
@@ -198,5 +203,7 @@ int			key_pressed(int keycode, t_data *data);
 int			ft_close(void *param);
 
 void		random_world(t_objects *objects);
+
+void		median_denoise(uint32_t *image, int img_w, int img_h);
 
 #endif
