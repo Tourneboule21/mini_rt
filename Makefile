@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lcrimet <lcrimet@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/22 09:47:26 by lcrimet           #+#    #+#              #
-#    Updated: 2023/03/06 16:42:56 by lcrimet          ###   ########lyon.fr    #
+#    Updated: 2023/03/06 18:22:25 by lcrimet          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
