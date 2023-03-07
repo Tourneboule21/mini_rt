@@ -47,7 +47,7 @@ CCDEFSFLGS	= $(foreach def,$(CCDEFS),-D $(def))
 BUILDDIR	= .build
 OBJS		= $(SRCS:%.c=$(BUILDDIR)/%.o) 
 DEPS		= $(SRCS:%.c=$(BUILDDIR)/%.d) 
-CC			= cc
+CC			= clang
 CCWFLGS		= -Wall -Wextra -Werror -pthread #-g3 -fsanitize=thread
 CCDBGFLGS	= -DDEBUG
 CCDEPSFLAGS	= -MMD -MP

@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:02:58 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/06 18:46:30 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/06 18:52:11 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ int	render_image(t_data *data)
 		for (int i = 0; i < 40; i++)
 			pthread_join(data->thread[i], NULL);
 		pthread_mutex_destroy(&data->mutex);
-		// median_denoise(data->renderer, data->win_w, data->win_h);
+		//median_denoise(data->renderer, data->win_w, data->win_h);
 		mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
 		print_render_time(get_current_time_ms(render_time));
 	}
