@@ -6,7 +6,7 @@
 /*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:36:31 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 19:47:24 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/07 11:44:57 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ void	*quit(t_data *data)
 	if (data->img.img)
 		mlx_destroy_image(data->mlx, data->img.img);
 	if (data->win)
-		mlx_destroy_window(data->mlx, data->win);	
+		mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);
+	free(data->thread);
+	free(data->objects.spheres);
 	exit(0);
 }
 

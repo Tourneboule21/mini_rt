@@ -6,7 +6,7 @@
 #    By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/22 09:47:26 by lcrimet           #+#    #+#              #
-#    Updated: 2023/03/06 18:22:25 by lcrimet          ###   ########lyon.fr    #
+#    Updated: 2023/03/07 11:52:34 by lcrimet          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ BUILDDIR	= .build
 OBJS		= $(SRCS:%.c=$(BUILDDIR)/%.o) 
 DEPS		= $(SRCS:%.c=$(BUILDDIR)/%.d) 
 CC			= clang
-CCWFLGS		= -Wall -Wextra -Werror -pthread #-g3 -fsanitize=thread
+CCWFLGS		= -Wall -Wextra -Werror -pthread #-g3 -fsanitize=address
 CCDBGFLGS	= -DDEBUG
 CCDEPSFLAGS	= -MMD -MP
 RM			= rm -Rf
