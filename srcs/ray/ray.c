@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
+/*   By: lcrimet <lcrimet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 18:08:12 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 23:33:50 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/10 13:53:51 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@ void	init_ray_from_camera(t_ray *ray, t_camera *camera, double s, double t)
 	add_vec3(&ray->dir, &vertical_scale);
 	substract_vec3(&ray->dir, &camera->origin);
 	substract_vec3(&ray->dir, &offset);
+	ray->time = random_double_limit(camera->start_time, camera->end_time);
 }
 
-void	init_ray(t_ray *ray, t_vec3 *origin, t_vec3 *dir)
+void	init_ray(t_ray *ray, t_vec3 *origin, t_vec3 *dir, double time)
 {
 	ray->origin = *origin;
 	ray->dir = *dir;
+	ray->time = time;
 }
 
 t_vec3	pos_on_ray(t_ray *ray, double t)
@@ -45,10 +47,11 @@ t_vec3	pos_on_ray(t_ray *ray, double t)
 	return (res);
 }
 
-t_ray	*set_ray(t_ray *ray, t_vec3 origin, t_vec3 dir)
+t_ray	*set_ray(t_ray *ray, t_vec3 origin, t_vec3 dir, double time)
 {
 	ray->origin = origin;
 	ray->dir = dir;
+	ray->time = time;
 	return (ray);
 }
 
@@ -72,7 +75,7 @@ t_vec3	ray_color(t_ray *ray, t_objects *objects, int depth)
 		//return (r_vec3_scale(ray_color(set_ray(ray, hit_info.p, r_substract_vec3(target, hit_info.p)), objects, depth - 1), 0.5));
 		if (objects->spheres[hit -1].mat.type == DIFFUSE)
 		{
-			if (diffuse_scatter(&hit_info, &color_attenuation, &scattered, &objects->spheres[hit -1].mat))
+			if (diffuse_scatter(ray, &hit_info, &color_attenuation, &scattered, &objects->spheres[hit -1].mat))
 				return (r_mult_vec3(color_attenuation, ray_color(&scattered, objects, depth - 1)));
 		}
 		else if (objects->spheres[hit -1].mat.type == METALLIC)

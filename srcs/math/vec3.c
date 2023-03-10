@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
+/*   By: lcrimet <lcrimet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:11:04 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 21:43:02 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/10 13:41:40 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,16 @@ t_vec3	r_mult_vec3(t_vec3 u, t_vec3 v)
 	res.x = u.x * v.x;
 	res.y = u.y * v.y;
 	res.z = u.z * v.z;
+	return (res);
+}
+
+t_vec3	r_div_vec3(t_vec3 u, t_vec3 v)
+{
+	t_vec3	res;
+
+	res.x = u.x / v.x;
+	res.y = u.y / v.y;
+	res.z = u.z / v.z;
 	return (res);
 }
 

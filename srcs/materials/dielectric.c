@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dielectric.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
+/*   By: lcrimet <lcrimet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 17:50:55 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 19:43:17 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/10 13:52:56 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ uint8_t	dielectric_scatter(t_ray *ray_in, t_hit_info *hit_info, t_vec3 *color_at
 		direction = reflect(unit_dir, hit_info->normal);
 	else
 		direction = refract(unit_dir, hit_info->normal, refract_ratio);;
-	set_ray(scattered, hit_info->p, direction);
+	set_ray(scattered, hit_info->p, direction, ray_in->time);
 	return (1);
 }

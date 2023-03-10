@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   random_scene.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
+/*   By: lcrimet <lcrimet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:15:51 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 23:39:06 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/10 14:17:29 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,26 @@ void	random_world(t_objects *objects)
 			t_vec3	point = r_substract_vec3(center, r_set_vec3(4.0, 0.2, 0.0));
 			if (vec3_length(&point), 0.9)
 			{
-				if (choose_mat < 0.8)
+				if (choose_mat < 0.6)
 				{
 					objects->spheres[i].mat.albedo = r_mult_vec3(random_vec3(), random_vec3());
 					objects->spheres[i].mat.type = DIFFUSE;
 					objects->spheres[i].center = center;
 					objects->spheres[i].radius = 0.2;
+					objects->spheres[i].center0 = center;
+					objects->spheres[i].center1 = r_add_vec3(center, r_set_vec3(0.0, random_double_limit(0.0, 0.5), 0.0));
+					objects->spheres[i].time0 = 0.0;
+					objects->spheres[i].time1 = 1.0;
+					objects->spheres[i].is_moving = 1;
 				}
-				else if (choose_mat < 0.95)
+				else if (choose_mat < 0.85)
 				{
 					objects->spheres[i].mat.albedo = random_vec3_limit(0.5, 1.0);
 					objects->spheres[i].mat.fuzz = random_double_limit(0.0, 0.5);
 					objects->spheres[i].mat.type = METALLIC;
 					objects->spheres[i].center = center;
 					objects->spheres[i].radius = 0.2;
+					objects->spheres[i].is_moving = 0;
 				}
 				else
 				{
@@ -52,6 +58,7 @@ void	random_world(t_objects *objects)
 					objects->spheres[i].mat.type = DIELECTRIC;
 					objects->spheres[i].center = center;
 					objects->spheres[i].radius = 0.2;
+					objects->spheres[i].is_moving = 0;
 				}
 			}
 		}

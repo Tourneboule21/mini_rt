@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
+/*   By: lcrimet <lcrimet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 12:18:43 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 22:22:55 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/10 13:51:53 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,18 @@ t_vec3	random_in_hemisphere(t_vec3 *normal)
 	return (r_reverse_vec3(in_unit_sphere));
 }
 
+t_vec3	get_center(t_sphere *sphere, double time)
+{
+	t_vec3	vec2;
+
+	if (sphere->is_moving)
+	{
+		vec2 = r_vec3_scale(r_substract_vec3(sphere->center1, sphere->center0), ((time - sphere->time0) / (sphere->time1 - sphere->time0)));
+		return (r_add_vec3(sphere->center0, vec2));
+	}
+	return (sphere->center);
+}
+
 uint8_t	hit_sphere(t_sphere *sphere, t_ray *ray, double t_min, double t_max, t_hit_info *hit_info)
 {
 	t_vec3	oc;
@@ -64,7 +76,7 @@ uint8_t	hit_sphere(t_sphere *sphere, t_ray *ray, double t_min, double t_max, t_h
 	double	sqrt_dis;
 	double	root;
 
-	oc = r_substract_vec3(ray->origin, sphere->center);
+	oc = r_substract_vec3(ray->origin, get_center(sphere, ray->time));
 	a = vec3_length_squared(&ray->dir);
 	half_b = vec3_dot_product(&oc, &ray->dir);
 	c = vec3_length_squared(&oc) - (sphere->radius * sphere->radius);
@@ -81,7 +93,7 @@ uint8_t	hit_sphere(t_sphere *sphere, t_ray *ray, double t_min, double t_max, t_h
 	}
 	hit_info->t = root;
 	hit_info->p = pos_on_ray(ray, hit_info->t);
-	outward_normal = r_vec3_scale((r_substract_vec3(hit_info->p, sphere->center)), (1.0 / sphere->radius));
+	outward_normal = r_vec3_scale((r_substract_vec3(hit_info->p, get_center(sphere, ray->time))), (1.0 / sphere->radius));
 	set_face_normal(ray, &outward_normal, hit_info);
 	return (1);
 }

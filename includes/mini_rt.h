@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_rt.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
+/*   By: lcrimet <lcrimet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:05:06 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/06 18:47:12 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/10 13:59:05 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_ray
 {
 	t_vec3	origin;
 	t_vec3	dir;
+	double	time;
 }	t_ray;
 
 typedef struct s_camera
@@ -72,6 +73,8 @@ typedef struct s_camera
 	t_vec3	v;
 	t_vec3	w;
 	double	lens_radius;
+	double	start_time;
+	double	end_time;
 }	t_camera;
 
 typedef struct s_bgra
@@ -119,6 +122,11 @@ typedef struct s_sphere
 	t_vec3		center;
 	double		radius;
 	t_material	mat;
+	uint8_t		is_moving;
+	t_vec3		center0;
+	t_vec3		center1;
+	double		time0;
+	double		time1;
 }	t_sphere;
 
 typedef struct s_objects
@@ -156,6 +164,7 @@ t_vec3		r_vec3_scale(t_vec3 vec, double scale);
 t_vec3		r_add_vec3(t_vec3 dest, t_vec3 add);
 t_vec3		r_substract_vec3(t_vec3 dest, t_vec3 sub);
 t_vec3		r_mult_vec3(t_vec3 u, t_vec3 v);
+t_vec3		r_div_vec3(t_vec3 u, t_vec3 v);
 t_vec3		r_reverse_vec3(t_vec3 vec);
 double		vec3_dot_product(t_vec3 *vec1, t_vec3 *vec2);
 t_vec3		vec3_cross_product(t_vec3 *vec1, t_vec3 *vec2);
@@ -177,21 +186,21 @@ t_vec3		random_unit_vec_sphere(void);
 t_vec3		random_in_hemisphere(t_vec3 *normal);
 uint8_t		hit_sphere(t_sphere *sphere, t_ray *ray, double t_min, double t_max, t_hit_info *hit_info);
 
-uint8_t		diffuse_scatter(t_hit_info *hit_info, t_vec3 *color_attenuation, t_ray *scattered, t_material *mat);
+uint8_t		diffuse_scatter(t_ray *ray_in, t_hit_info *hit_info, t_vec3 *color_attenuation, t_ray *scattered, t_material *mat);
 uint8_t		metallic_scatter(t_ray *ray_in, t_hit_info *hit_info, t_vec3 *color_attenuation, t_ray *scattered, t_material *mat);
 uint8_t		dielectric_scatter(t_ray *ray_in, t_hit_info *hit_info, t_vec3 *color_attenuation, t_ray *scattered, t_material *mat);
 
 uint32_t	world_hit(t_objects *objects, t_ray *ray, double t_min, double t_max, t_hit_info *hit_info);
 void		set_face_normal(t_ray *ray, t_vec3 *outward_normal, t_hit_info *hit_info);
 
-void		init_ray(t_ray *ray, t_vec3 *origin, t_vec3 *dir);
-t_ray		*set_ray(t_ray *ray, t_vec3 origin, t_vec3 dir);
+void		init_ray(t_ray *ray, t_vec3 *origin, t_vec3 *dir, double time);
+t_ray		*set_ray(t_ray *ray, t_vec3 origin, t_vec3 dir, double time);
 t_vec3		pos_on_ray(t_ray *ray, double t);
 t_vec3		ray_color(t_ray *ray, t_objects *objects, int depth);
 t_vec3		get_ray_dir(t_camera *camera, double u, double v);
 void		init_ray_from_camera(t_ray *ray, t_camera *camera, double s, double t);
 
-void		init_camera(t_camera *camera, t_vec3 lookfrom, t_vec3 lookat, t_vec3 vup, double aperture, double focus_dist);
+void		init_camera(t_camera *camera, t_vec3 lookfrom, t_vec3 lookat, t_vec3 vup, double aperture, double focus_dist, double start_time, double end_time);
 
 int			init_mlx(t_data *data);
 

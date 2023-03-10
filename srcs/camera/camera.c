@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
+/*   By: lcrimet <lcrimet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 18:51:13 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/05 22:06:04 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/10 13:58:38 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static double	deg_to_rad(double fov)
 
 
 // need to replace lookfrom and lookat by direction
-void	init_camera(t_camera *camera, t_vec3 lookfrom, t_vec3 lookat, t_vec3 vup, double aperture, double focus_dist)
+void	init_camera(t_camera *camera, t_vec3 lookfrom, t_vec3 lookat, t_vec3 vup, double aperture, double focus_dist, double start_time, double end_time)
 {
 	t_vec3	half_horizontal;
 	t_vec3	half_vertical;
@@ -42,4 +42,6 @@ void	init_camera(t_camera *camera, t_vec3 lookfrom, t_vec3 lookat, t_vec3 vup, d
 	substract_vec3(&camera->low_left_corner, &half_vertical);
 	camera->low_left_corner = r_substract_vec3(camera->low_left_corner, r_vec3_scale(camera->w, focus_dist));
 	camera->lens_radius = aperture / 2;
+	camera->start_time = start_time;
+	camera->end_time = end_time;
 }

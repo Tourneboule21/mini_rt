@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcrimet <lcrimet@student.42lyon.fr >       +#+  +:+       +#+        */
+/*   By: lcrimet <lcrimet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:02:58 by lcrimet           #+#    #+#             */
-/*   Updated: 2023/03/07 11:43:40 by lcrimet          ###   ########lyon.fr   */
+/*   Updated: 2023/03/10 14:00:23 by lcrimet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	*routine(void *param)
 }
 
 /* comment the t value check if you want to see scene in "real" time 
-   (need to be in super low resolution)*/
+   (need to be in super low resolution) */
 
 int	render_image(t_data *data)
 {
@@ -180,6 +180,7 @@ int	main(void)
 	t_vec3	lookat;
 	// t_vec3	focus;
 
+	srand(time(NULL));
 	if (!init_mlx(&data))
 		return (1);
 	data.thread = malloc(sizeof(pthread_t) * 40);
@@ -188,8 +189,8 @@ int	main(void)
 	lookfrom = r_set_vec3(13.0, 2.0, 3.0);
 	lookat = r_set_vec3(0.0, 0.0, 0.0);
 	// focus = r_substract_vec3(lookfrom, lookat);
-	init_camera(&data.camera, lookfrom, lookat, r_set_vec3(0.0, 1.0, 0.0), 0.1, 10.0);
-	data.sample_per_pixel = 10;
+	init_camera(&data.camera, lookfrom, lookat, r_set_vec3(0.0, 1.0, 0.0), 0.1, 10.0, 0.0, 1.0);
+	data.sample_per_pixel = 300;
 	data.max_depth = 5;
 	// data.objects.spheres = malloc(sizeof(t_sphere) * 4);
 	// data.objects.spheres_nb = 4;
